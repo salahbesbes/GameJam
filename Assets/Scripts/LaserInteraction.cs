@@ -7,16 +7,6 @@ public class LaserInteraction : MonoBehaviour
         public ScInventory inventory;
         private bool StartTracing = false;
 
-        public static LaserInteraction instance;
-
-        private void Awake()
-        {
-                if (instance == null)
-                {
-                        instance = this;
-                }
-        }
-
         private void Start()
         {
                 CameraRoot = Camera.main.transform;
@@ -36,7 +26,7 @@ public class LaserInteraction : MonoBehaviour
                 Debug.DrawRay(ray.origin, ray.direction);
                 RaycastHit hit;
 
-                if (Physics.Raycast(ray, out hit, 100, intetactableLayer))
+                if (Physics.Raycast(ray, out hit, 5, intetactableLayer))
                 {
                         /*  hit some interactable Actor */
                         IInteractable InteractObj = hit.transform.GetComponent<IInteractable>();
@@ -48,6 +38,8 @@ public class LaserInteraction : MonoBehaviour
                         if (Input.GetMouseButtonDown(0))
                         {
                                 InteractObj.Interact();
+                                inventory.Add(hit.transform.name, InteractObj);
+                                Debug.Log($"found {inventory.GetObjectCount(hit.transform.name)} {hit.transform.name}");
                         }
                 }
         }

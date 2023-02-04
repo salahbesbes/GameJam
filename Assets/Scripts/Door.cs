@@ -1,50 +1,24 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Door : Selectable
 {
-        public static bool now = false;
+        public int id;
         private bool rotating = false;
         private int direction = 1;
 
         public float rotationAngle = 90;
         public float rotationSpeed = 2;
 
-        public bool isLocked = true;
-        public int id;
-
-        public void unlock()
-        {
-                isLocked = false;
-        }
-
         public override void Interact()
         {
                 base.Interact();
+              
                 if (rotating == false)
                 {
-                        if (isLocked == false)
-                        {
-                                StartCoroutine(Rotate90(transform.parent));
-                                direction *= -1;
-                        }
-                        else
-                        {
-                                Debug.Log($"Door IS locked we try to find the key frm the inventory");
-                                LaserInteraction.instance.inventory.Collected.TryGetValue("Key", out List<IInteractable> values);
-                                if (values == null) return;
-
-                                foreach (IInteractable item in values)
-                                {
-                                        keyInteractable key = item as keyInteractable;
-                                        if (key.id == id)
-                                        {
-                                                unlock();
-                                                break;
-                                        }
-                                }
-                        }
+                    StartCoroutine(Rotate90(transform.parent));
+                    direction *= -1;
+                        
                 }
         }
 
@@ -63,16 +37,5 @@ public class Door : Selectable
                 parent.transform.rotation = targetRotation;
                 rotating = false;
         }
-
-        private void OnGUI()
-        {
-                if (now)
-                {
-                        GUI.Box(new Rect(0, 0, 200, 25), "Press mouse 0 to open");
-                }
-                else
-                {
-                        GUI.Box(new Rect(0, 0, 200, 25), "Need a key!");
-                }
-        }
+    
 }
