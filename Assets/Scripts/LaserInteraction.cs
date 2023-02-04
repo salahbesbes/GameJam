@@ -7,15 +7,16 @@ public class LaserInteraction : MonoBehaviour
         public LayerMask intetactableLayer;
         public ScInventory inventory;
         private bool StartTracing = false;
-    
-        public GameObject pointer;
-        public GameObject pointer01;
+    public GameObject CrossHair;
+    public GameObject CrossHair2;
 
-        private void Start()
+    private void Start()
         {
                 CameraRoot = Camera.main.transform;
-                
-        }
+        CrossHair.SetActive(false);
+        CrossHair2.SetActive(true);
+
+    }
 
         public void SetStartTracing(bool tracing)
         {
@@ -41,16 +42,15 @@ public class LaserInteraction : MonoBehaviour
                     // Show or update pointer
                     if (InteractObj != null)
                     {
-                        pointer.gameObject.SetActive(true);
-                        pointer01.gameObject.SetActive(false);
-                        pointer.transform.position = hit.point;
+                CrossHair.SetActive(true);
+                CrossHair2.SetActive(false);
             }
                     else
                     {
-                        pointer.gameObject.SetActive(false);
-                        pointer01.gameObject.SetActive(true);
-                        pointer01.transform.position = hit.point;
-                    }
+                CrossHair.SetActive(false);
+                CrossHair2.SetActive(true);
+            }
+
 
             if (Input.GetMouseButtonDown(0))
                         {
