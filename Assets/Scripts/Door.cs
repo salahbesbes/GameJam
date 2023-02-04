@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Door : Selectable
 {
-        public static bool now = false;
         private bool rotating = false;
         private int direction = 1;
 
