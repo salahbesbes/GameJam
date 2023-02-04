@@ -41,8 +41,10 @@ public class LaserInteraction : MonoBehaviour
                     // Show or update pointer
                     if (InteractObj != null)
                     {
-                        pointer.enable = 
-                    }
+                        pointer.gameObject.SetActive(true);
+                        pointer01.gameObject.SetActive(false);
+                        pointer.transform.position = hit.point;
+            }
                     else
                     {
                         pointer.gameObject.SetActive(false);
